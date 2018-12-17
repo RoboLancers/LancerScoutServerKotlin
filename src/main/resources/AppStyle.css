@@ -1,0 +1,76 @@
+.root {
+    -fx-background-color: #303030;
+}
+
+/* TAB PANE */
+
+.jfx-tab-pane .tab-header-background {
+    -fx-background-color: #690a0f;
+}
+
+.jfx-tab-pane .headers-region > .tab > .jfx-rippler {
+    -jfx-rippler-fill: #bbb;
+}
+
+.jfx-tab-pane .tab-selected-line {
+    -fx-background-color: #bbb;
+}
+
+.jfx-text-field {
+    -fx-prompt-text-fill: WHITE;
+    -jfx-focus-color: WHITE;
+    -jfx-unfocus-color: WHITE;
+    -fx-text-fill: white;
+}
+
+.list-view {
+    -fx-background-color: #303030;
+}
+
+.list-view .list-cell:filled {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-border-color: white;
+}
+
+.list-view .list-cell:empty {
+    -fx-background-color: transparent;
+}
+
+.list-view .list-cell:selected {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
+.list-view .list-cell:filled:hover {
+    -fx-background-color: #0093ff;
+    -fx-text-fill: white;
+}
+
+.button {
+    -fx-background-radius: 5em;
+}
+
+.label {
+    -fx-text-fill: white;
+}
+
+.scroll-pane {
+    -fx-background-color: #303030;
+}
+
+.chart {
+    -fx-background-color: #303030;
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.chart-legend {
+    -fx-background-color: transparent;
+}
+
+.axis {
+    -fx-tick-label-fill: white;
+}

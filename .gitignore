@@ -27,4 +27,5 @@ build/
 *.iml
 out/
 
+!bluecove-2.1.2.jar
 venv/

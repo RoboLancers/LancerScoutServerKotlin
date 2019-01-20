@@ -3,7 +3,6 @@ package com.robolancers.scoutserver.views
 import com.robolancers.scoutserver.controllers.TeamController
 import com.robolancers.scoutserver.models.match.LancerTeam
 import com.robolancers.scoutserver.utilities.AlertHelper
-import javafx.application.Platform
 import javafx.beans.property.SimpleObjectProperty
 import javafx.collections.FXCollections
 import javafx.geometry.Pos
@@ -25,8 +24,11 @@ class TeamView : View() {
     private val drivetrainLabel
         get() = root.scene.lookup("#drivetrainLabel") as Label
 
-    private val cubeIntakeLabel
-        get() = root.scene.lookup("#cubeIntakeLabel") as Label
+    private val cargoIntakeLabel
+        get() = root.scene.lookup("#cargoIntakeLabel") as Label
+
+    private val hatchIntakeLabel
+        get() = root.scene.lookup("#cargoIntakeLabel") as Label
 
     private val climbLabel
         get() = root.scene.lookup("#climbLabel") as Label
@@ -40,26 +42,23 @@ class TeamView : View() {
     private val totalMatchesLabel
         get() = root.scene.lookup("#totalMatchesLabel") as Label
 
-    private val allianceSwitchLabel
-        get() = root.scene.lookup("#allianceSwitchLabel") as Label
+    private val rocketCargoLabel
+        get() = root.scene.lookup("#rocketCargoLabel") as Label
 
-    private val centerScaleLabel
-        get() = root.scene.lookup("#centerScaleLabel") as Label
+    private val rocketHatchLabel
+        get() = root.scene.lookup("#rocketHatchLabel") as Label
 
-    private val opponentSwitchLabel
-        get() = root.scene.lookup("#opponentSwitchLabel") as Label
+    private val shipCargoLabel
+        get() = root.scene.lookup("#shipCargoLabel") as Label
 
-    private val exchangeLabel
-        get() = root.scene.lookup("#exchangeLabel") as Label
+    private val shipHatchLabel
+        get() = root.scene.lookup("#shipHatchLabel") as Label
 
     private val robotBrokeDownLabel
         get() = root.scene.lookup("#robotBrokeDownLabel") as Label
 
     private val crossAutoLineLabel
         get() = root.scene.lookup("#crossAutoLineLabel") as Label
-
-    private val wrongSideAutoLabel
-        get() = root.scene.lookup("#wrongSideAutoLabel") as Label
 
     private val teamMatchesSqueezeBox
         get() = root.scene.lookup("#teamMatchesSqueezeBox") as SqueezeBox
@@ -126,9 +125,18 @@ class TeamView : View() {
                     hbox {
                         alignment = Pos.CENTER
 
-                        label("Cube Intake: ")
+                        label("Cargo Intake: ")
                         label {
-                            id = "cubeIntakeLabel"
+                            id = "cargoIntakeLabel"
+                        }
+                    }
+
+                    hbox {
+                        alignment = Pos.CENTER
+
+                        label("Hatch Intake: ")
+                        label {
+                            id = "hatchIntakeLabel"
                         }
                     }
 
@@ -185,40 +193,40 @@ class TeamView : View() {
                     hbox {
                         alignment = Pos.CENTER
 
-                        label("Alliance Switch: ")
+                        label("Rocket Cargo: ")
                         label {
                             text = "N/A"
-                            id = "allianceSwitchLabel"
+                            id = "rocketCargoLabel"
                         }
                     }
 
                     hbox {
                         alignment = Pos.CENTER
 
-                        label("Center Scale: ")
+                        label("Rocket Hatch: ")
                         label {
                             text = "N/A"
-                            id = "centerScaleLabel"
+                            id = "rocketHatchLabel"
                         }
                     }
 
                     hbox {
                         alignment = Pos.CENTER
 
-                        label("Opponent Switch: ")
+                        label("Ship Cargo: ")
                         label {
                             text = "N/A"
-                            id = "opponentSwitchLabel"
+                            id = "shipCargoLabel"
                         }
                     }
 
                     hbox {
                         alignment = Pos.CENTER
 
-                        label("Exchange: ")
+                        label("Ship Hatch: ")
                         label {
                             text = "N/A"
-                            id = "exchangeLabel"
+                            id = "shipHatchLabel"
                         }
                     }
 
@@ -239,16 +247,6 @@ class TeamView : View() {
                         label {
                             text = "N/A"
                             id = "robotBrokeDownLabel"
-                        }
-                    }
-
-                    hbox {
-                        alignment = Pos.CENTER
-
-                        label("Wrong Side Auto: ")
-                        label {
-                            text = "N/A"
-                            id = "wrongSideAutoLabel"
                         }
                     }
                 }
@@ -299,39 +297,38 @@ class TeamView : View() {
             teamNumberLabel.text = "Team $currentTeam"
 
             drivetrainLabel.text = currentTeamPitInfo?.drivetrain?.toString() ?: "No information"
-            cubeIntakeLabel.text = currentTeamPitInfo?.cubeIntake?.toString() ?: "No information"
+            cargoIntakeLabel.text = currentTeamPitInfo?.cargoIntake?.toString() ?: "No information"
+            hatchIntakeLabel.text = currentTeamPitInfo?.hatchIntake?.toString() ?: "No information"
             climbLabel.text = currentTeamPitInfo?.climb?.toString() ?: "No information"
             robotWeightLabel.text = currentTeamPitInfo?.robotWeight?.toString() ?: "No information"
             programmingLanguageLabel.text = currentTeamPitInfo?.programmingLanguage?.toString() ?: "No information"
 
             totalMatchesLabel.text = matches?.size?.toString() ?: "No information"
 
-            allianceSwitchLabel.text =
-                    fixNaN(truncate(matches?.sumBy { it.allianceSwitch }?.toDouble()?.div(totalMatches) ?: 0.0).toString())
-            centerScaleLabel.text =
-                    fixNaN(truncate(matches?.sumBy { it.centerScale }?.toDouble()?.div(totalMatches) ?: 0.0).toString())
-            opponentSwitchLabel.text =
-                    fixNaN(truncate(matches?.sumBy { it.opponentSwitch }?.toDouble()?.div(totalMatches) ?: 0.0).toString())
-            exchangeLabel.text =
-                    fixNaN(truncate(matches?.sumBy { it.exchange }?.toDouble()?.div(totalMatches) ?: 0.0).toString())
+            rocketCargoLabel.text =
+                    fixNaN(truncate(matches?.sumBy { it.rocketCargo }?.toDouble()?.div(totalMatches) ?: 0.0).toString())
+            rocketHatchLabel.text =
+                    fixNaN(truncate(matches?.sumBy { it.rocketHatch }?.toDouble()?.div(totalMatches) ?: 0.0).toString())
+            shipCargoLabel.text =
+                    fixNaN(truncate(matches?.sumBy { it.shipCargo }?.toDouble()?.div(totalMatches) ?: 0.0).toString())
+            shipHatchLabel.text =
+                    fixNaN(truncate(matches?.sumBy { it.shipHatch }?.toDouble()?.div(totalMatches) ?: 0.0).toString())
             crossAutoLineLabel.text =
                     fixNaN(numberFormat.format(matches?.sumBy { if (it.crossedAutoLine) 1 else 0 }?.toDouble()?.div(totalMatches) ?: 0.0).toString())
             robotBrokeDownLabel.text =
                     fixNaN(numberFormat.format(matches?.sumBy { if (it.robotBrokeDown) 1 else 0 }?.toDouble()?.div(totalMatches) ?: 0.0).toString())
-            wrongSideAutoLabel.text =
-                    fixNaN(numberFormat.format(matches?.sumBy { if (it.wrongSideAuto) 1 else 0 }?.toDouble()?.div(totalMatches) ?: 0.0).toString())
 
-            val allianceSwitchSeries = XYChart.Series<String, Number>()
-            allianceSwitchSeries.name = "Alliance Switch"
+            val rocketCargoSeries = XYChart.Series<String, Number>()
+            rocketCargoSeries.name = "Rocket Cargo"
 
-            val centerScaleSeries = XYChart.Series<String, Number>()
-            centerScaleSeries.name = "Center Scale"
+            val rocketHatchSeries = XYChart.Series<String, Number>()
+            rocketHatchSeries.name = "Rocket Hatch"
 
-            val opponentSwitchSeries = XYChart.Series<String, Number>()
-            opponentSwitchSeries.name = "Opponent Switch"
+            val shipCargoSeries = XYChart.Series<String, Number>()
+            shipCargoSeries.name = "Ship Cargo"
 
-            val exchangeSeries = XYChart.Series<String, Number>()
-            exchangeSeries.name = "Exchange"
+            val shipHatchSeries = XYChart.Series<String, Number>()
+            shipHatchSeries.name = "Ship Hatch"
 
             val categories = FXCollections.observableArrayList<String>()
 
@@ -342,24 +339,23 @@ class TeamView : View() {
                             id = "squeezeBoxFold"
 
                             label("Alliance Color: " + match.color)
-                            label("Starting Configuration: " + match.startingConfiguration)
+                            label("Starting Configuration: " + match.startingConfiguration.startingConfigurationName)
 
                             label("Autonomous") {
                                 font = Font(25.0)
                             }
 
                             label("Crossed Auto Line: " + match.crossedAutoLine)
-                            label("Autonomous Attempt: " + match.autonomousAttempt.attemptName)
-                            label("Cube on wrong side: " + match.wrongSideAuto)
+                            label("Sandstorm: " + match.sandstorm.sandstormName)
 
-                            label("TeleOp") {
+                            label("Scoring") {
                                 font = Font(25.0)
                             }
 
-                            label("Alliance Switch: " + match.allianceSwitch)
-                            label("Center Scale: " + match.centerScale)
-                            label("Opponent Switch: " + match.opponentSwitch)
-                            label("Exchange: " + match.exchange)
+                            label("Rocket Cargo: " + match.rocketCargo)
+                            label("Rocket Hatch: " + match.rocketHatch)
+                            label("Ship Cargo: " + match.shipCargo)
+                            label("Ship Hatch: " + match.shipHatch)
 
                             label("End Game") {
                                 font = Font(25.0)
@@ -384,23 +380,23 @@ class TeamView : View() {
                         }
                     }
 
-                    allianceSwitchSeries.data.add(XYChart.Data(match.matchNumber.toString(), match.allianceSwitch))
-                    centerScaleSeries.data.add(XYChart.Data(match.matchNumber.toString(), match.centerScale))
-                    opponentSwitchSeries.data.add(XYChart.Data(match.matchNumber.toString(), match.opponentSwitch))
-                    exchangeSeries.data.add(XYChart.Data(match.matchNumber.toString(), match.exchange))
+                    rocketCargoSeries.data.add(XYChart.Data(match.matchNumber.toString(), match.rocketCargo))
+                    rocketHatchSeries.data.add(XYChart.Data(match.matchNumber.toString(), match.rocketHatch))
+                    shipCargoSeries.data.add(XYChart.Data(match.matchNumber.toString(), match.shipCargo))
+                    shipHatchSeries.data.add(XYChart.Data(match.matchNumber.toString(), match.shipHatch))
 
                     categories.add(match.matchNumber.toString())
                 }
             }
 
             chartXAxis.categories = categories
-            teamSummaryChart.data = FXCollections.observableArrayList(allianceSwitchSeries, centerScaleSeries, opponentSwitchSeries, exchangeSeries)
+            teamSummaryChart.data = FXCollections.observableArrayList(rocketCargoSeries, rocketHatchSeries, shipCargoSeries, shipHatchSeries)
         }
 
         chartXAxis.label = "Match Number"
 
         chartYAxis.tickUnit = 1.0
-        chartYAxis.label = "Number of cubes"
+        chartYAxis.label = "Number of Cargo/Hatches"
     }
 
     private fun fixNaN(percentage: String): String {

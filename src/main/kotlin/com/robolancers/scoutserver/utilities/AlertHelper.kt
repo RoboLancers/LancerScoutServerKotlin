@@ -64,34 +64,29 @@ object AlertHelper {
             match2Difference += "Crossed Auto Line: " + match2.crossedAutoLine + "\n"
         }
 
-        if (match1.autonomousAttempt !== match2.autonomousAttempt) {
-            match1Difference += "Autonomous Attempt: " + match1.autonomousAttempt + "\n"
-            match2Difference += "Autonomous Attempt: " + match2.autonomousAttempt + "\n"
+        if (match1.sandstorm !== match2.sandstorm) {
+            match1Difference += "Autonomous Attempt: " + match1.sandstorm + "\n"
+            match2Difference += "Autonomous Attempt: " + match2.sandstorm + "\n"
         }
 
-        if (match1.wrongSideAuto != match2.wrongSideAuto) {
-            match1Difference += "Wrong side auto: " + match1.wrongSideAuto + "\n"
-            match2Difference += "Wrong side auto: " + match2.wrongSideAuto + "\n"
+        if (match1.rocketCargo != match2.rocketCargo) {
+            match1Difference += "Rocket Cargo: " + match1.rocketCargo + "\n"
+            match2Difference += "Rocket Cargo: " + match2.rocketCargo + "\n"
         }
 
-        if (match1.allianceSwitch != match2.allianceSwitch) {
-            match1Difference += "Alliance Switch: " + match1.allianceSwitch + "\n"
-            match2Difference += "Alliance Switch: " + match2.allianceSwitch + "\n"
+        if (match1.rocketHatch != match2.rocketHatch) {
+            match1Difference += "Rocket Hatch: " + match1.rocketHatch + "\n"
+            match2Difference += "Rocket Hatch: " + match2.rocketHatch + "\n"
         }
 
-        if (match1.centerScale != match2.centerScale) {
-            match1Difference += "Center Scale: " + match1.centerScale + "\n"
-            match2Difference += "Center Scale: " + match2.centerScale + "\n"
+        if (match1.shipCargo != match2.shipCargo) {
+            match1Difference += "Ship Cargo: " + match1.shipCargo + "\n"
+            match2Difference += "Ship Cargo: " + match2.shipCargo + "\n"
         }
 
-        if (match1.opponentSwitch != match2.opponentSwitch) {
-            match1Difference += "Opponent Switch: " + match1.opponentSwitch + "\n"
-            match2Difference += "Opponent Switch: " + match2.opponentSwitch + "\n"
-        }
-
-        if (match1.exchange != match2.exchange) {
-            match1Difference += "Exchange: " + match1.exchange + "\n"
-            match2Difference += "Exchange: " + match2.exchange + "\n"
+        if (match1.shipHatch != match2.shipHatch) {
+            match1Difference += "Ship Hatch: " + match1.shipHatch + "\n"
+            match2Difference += "Ship Hatch: " + match2.shipHatch + "\n"
         }
 
         if (match1.endGameAttempt !== match2.endGameAttempt) {

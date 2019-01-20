@@ -4,15 +4,17 @@ class LancerMatchBuilder {
     private var matchNumber: Int = 0
     private var teamNumber: Int = 0
     private var color: AllianceColor = AllianceColor.BLUE
-    private var startingConfiguration: StartingConfiguration = StartingConfiguration.LEFT
+    private var startingConfiguration: StartingConfiguration = StartingConfiguration.LEVEL_1
+
     private var crossedAutoLine: Boolean = false
-    private var autonomousAttempt: AutonomousAttempt = AutonomousAttempt.NO_CUBE_ATTEMPT
-    private var wrongSideAuto: Boolean = false
-    private var allianceSwitch: Int = 0
-    private var centerScale: Int = 0
-    private var opponentSwitch: Int = 0
-    private var exchange: Int = 0
-    private var endGameAttempt: EndGameAttempt = EndGameAttempt.NOT_PARKED_ON_PLATFORM
+    private var sandstorm: Sandstorm = Sandstorm.AUTONOMOUS
+
+    private var rocketCargo: Int = 0
+    private var rocketHatch: Int = 0
+    private var shipCargo: Int = 0
+    private var shipHatch: Int = 0
+
+    private var endGameAttempt: EndGameAttempt = EndGameAttempt.DID_NOT_CLIMB
     private var brokeDown: Boolean = false
     private var comment: String = ""
 
@@ -41,33 +43,28 @@ class LancerMatchBuilder {
         return this
     }
 
-    fun setAutonomousAttempt(autonomousAttempt: AutonomousAttempt): LancerMatchBuilder {
-        this.autonomousAttempt = autonomousAttempt
+    fun setAutonomousAttempt(sandstorm: Sandstorm): LancerMatchBuilder {
+        this.sandstorm = sandstorm
         return this
     }
 
-    fun setWrongSideAuto(wrongSideAuto: Boolean): LancerMatchBuilder {
-        this.wrongSideAuto = wrongSideAuto
+    fun setRocketCargo(rocketCargo: Int): LancerMatchBuilder {
+        this.rocketCargo = rocketCargo
         return this
     }
 
-    fun setAllianceSwitch(allianceSwitch: Int): LancerMatchBuilder {
-        this.allianceSwitch = allianceSwitch
+    fun setRocketHatch(rocketHatch: Int): LancerMatchBuilder {
+        this.rocketHatch = rocketHatch
         return this
     }
 
-    fun setCenterScale(centerScale: Int): LancerMatchBuilder {
-        this.centerScale = centerScale
+    fun setShipCargo(shipCargo: Int): LancerMatchBuilder {
+        this.shipCargo = shipCargo
         return this
     }
 
-    fun setOpponentSwitch(opponentSwitch: Int): LancerMatchBuilder {
-        this.opponentSwitch = opponentSwitch
-        return this
-    }
-
-    fun setExchange(exchange: Int): LancerMatchBuilder {
-        this.exchange = exchange
+    fun setShipHatch(shipHatch: Int): LancerMatchBuilder {
+        this.shipHatch = shipHatch
         return this
     }
 
@@ -93,12 +90,11 @@ class LancerMatchBuilder {
             color,
             startingConfiguration,
             crossedAutoLine,
-            autonomousAttempt,
-            wrongSideAuto,
-            allianceSwitch,
-            centerScale,
-            opponentSwitch,
-            exchange,
+            sandstorm,
+            rocketCargo,
+            rocketHatch,
+            shipCargo,
+            shipHatch,
             endGameAttempt,
             brokeDown,
             comment

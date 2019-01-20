@@ -170,18 +170,14 @@ class StrategyView : View(){
             }
         }
 
-        button("Generate prediction") {
-            hgrow = Priority.ALWAYS
-            vgrow = Priority.ALWAYS
-            alignment = Pos.TOP_CENTER
+        hbox {
+            button("Generate prediction") {
+                hgrow = Priority.ALWAYS
+                vgrow = Priority.ALWAYS
+                alignment = Pos.TOP_CENTER
 
-            onMouseClicked = EventHandler {
-                CSVPrinter(Files.newBufferedWriter(Paths.get("./data.csv")), CSVFormat.DEFAULT.withHeader("MatchNumber", "TeamNumber", "AllianceSwitch", "CenterScale", "OpponentSwitch", "Exchange")).use {printer ->
-                    TeamController.teams.forEach {team ->
-                        team.matches.forEach {match ->
-                            printer.printRecord(match.matchNumber, match.teamNumber, match.allianceSwitch, match.centerScale, match.opponentSwitch, match.exchange)
-                        }
-                    }
+                onMouseClicked = EventHandler {
+
                 }
             }
         }
@@ -208,6 +204,33 @@ class StrategyView : View(){
 
                         mouseEvent.consume()
                     }
+                }
+            }
+        }
+    }
+
+    fun saveToCSV(){
+        CSVPrinter(
+            Files.newBufferedWriter(Paths.get("./data.csv")),
+            CSVFormat.DEFAULT.withHeader(
+                "MatchNumber",
+                "TeamNumber",
+                "RocketCargo",
+                "RocketHatch",
+                "ShipCargo",
+                "ShipHatch"
+            )
+        ).use { printer ->
+            TeamController.teams.forEach { team ->
+                team.matches.forEach { match ->
+                    printer.printRecord(
+                        match.matchNumber,
+                        match.teamNumber,
+                        match.rocketCargo,
+                        match.rocketHatch,
+                        match.shipCargo,
+                        match.shipHatch
+                    )
                 }
             }
         }

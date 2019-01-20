@@ -92,7 +92,7 @@ class MainView(tabPane: TabPane): View(){
                     val newTeam = LancerTeam(++currentTeamNum)
 
                     for(i in 0..5){
-                        newTeam.matches.add(LancerMatchBuilder().setMatchNumber(i).setTeamNumber(currentTeamNum).setAllianceSwitch(Random.nextInt(10)).setCenterScale(Random.nextInt(10)).setOpponentSwitch(Random.nextInt(10)).setExchange(Random.nextInt(10)).createLancerMatch())
+                        newTeam.matches.add(LancerMatchBuilder().setMatchNumber(i).setTeamNumber(currentTeamNum).setRocketCargo(Random.nextInt(10)).setRocketHatch(Random.nextInt(10)).setShipCargo(Random.nextInt(10)).setShipHatch(Random.nextInt(10)).createLancerMatch())
                     }
 
                     TeamController.teams.add(newTeam)

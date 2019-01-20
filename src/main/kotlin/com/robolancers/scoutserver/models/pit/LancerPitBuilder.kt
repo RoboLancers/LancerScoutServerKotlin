@@ -3,8 +3,11 @@ package com.robolancers.scoutserver.models.pit
 class LancerPitBuilder {
     private var teamNumber: Int = 0
     private var drivetrain: Drivetrain? = null
-    private var cubeIntake: CubeIntake? = null
+
+    private var cargoIntake: Intake? = null
+    private var hatchIntake: Intake? = null
     private var climb: Climb? = null
+
     private var robotWeight: Int = 0
     private var programmingLanguage: ProgrammingLanguage? = null
 
@@ -18,8 +21,13 @@ class LancerPitBuilder {
         return this
     }
 
-    fun setCubeIntake(cubeIntake: CubeIntake): LancerPitBuilder {
-        this.cubeIntake = cubeIntake
+    fun setCargoIntake(intake: Intake): LancerPitBuilder {
+        this.cargoIntake = intake
+        return this
+    }
+
+    fun setHatchIntake(intake: Intake): LancerPitBuilder {
+        this.hatchIntake = intake
         return this
     }
 
@@ -39,6 +47,6 @@ class LancerPitBuilder {
     }
 
     fun createLancerPit(): LancerPit {
-        return LancerPit(teamNumber, drivetrain!!, cubeIntake!!, climb!!, robotWeight, programmingLanguage!!)
+        return LancerPit(teamNumber, drivetrain!!, cargoIntake!!, hatchIntake!!, climb!!, robotWeight, programmingLanguage!!)
     }
 }

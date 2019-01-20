@@ -8,12 +8,11 @@ class LancerMatch(
     val color: AllianceColor,
     val startingConfiguration: StartingConfiguration,
     val crossedAutoLine: Boolean,
-    val autonomousAttempt: AutonomousAttempt,
-    val wrongSideAuto: Boolean,
-    val allianceSwitch: Int,
-    val centerScale: Int,
-    val opponentSwitch: Int,
-    val exchange: Int,
+    val sandstorm: Sandstorm,
+    val rocketCargo: Int,
+    val rocketHatch: Int,
+    val shipCargo: Int,
+    val shipHatch: Int,
     val endGameAttempt: EndGameAttempt,
     val robotBrokeDown: Boolean,
     val comment: String
@@ -41,12 +40,11 @@ class LancerMatch(
             color,
             startingConfiguration,
             crossedAutoLine,
-            autonomousAttempt,
-            wrongSideAuto,
-            allianceSwitch,
-            centerScale,
-            opponentSwitch,
-            exchange,
+            sandstorm,
+            rocketCargo,
+            rocketHatch,
+            shipCargo,
+            shipHatch,
             endGameAttempt,
             robotBrokeDown,
             comment
@@ -68,24 +66,22 @@ class LancerMatch(
         matchInfo.append(crossedAutoLine)
         matchInfo.append("\n")
         matchInfo.append("Autonomous Attempt: ")
-        matchInfo.append(autonomousAttempt)
+        matchInfo.append(sandstorm)
         matchInfo.append("\n")
         matchInfo.append("Put cube on wrong side? ")
-        matchInfo.append(if (wrongSideAuto) "Yes" else "No")
-        matchInfo.append("\n")
 
-        matchInfo.append("\nTeleOp\n")
-        matchInfo.append("Alliance Switch: ")
-        matchInfo.append(allianceSwitch)
+        matchInfo.append("\nScoring\n")
+        matchInfo.append("Rocket Cargo: ")
+        matchInfo.append(rocketCargo)
         matchInfo.append("\n")
-        matchInfo.append("Center Scale: ")
-        matchInfo.append(centerScale)
+        matchInfo.append("Rocket Hatch: ")
+        matchInfo.append(rocketHatch)
         matchInfo.append("\n")
-        matchInfo.append("Opponent Switch: ")
-        matchInfo.append(opponentSwitch)
+        matchInfo.append("Ship Cargo: ")
+        matchInfo.append(shipCargo)
         matchInfo.append("\n")
-        matchInfo.append("Exchange: ")
-        matchInfo.append(exchange)
+        matchInfo.append("Ship Hatch: ")
+        matchInfo.append(shipHatch)
         matchInfo.append("\n")
 
         matchInfo.append("\nEnd Game\n")

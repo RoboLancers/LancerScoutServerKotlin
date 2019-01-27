@@ -29,11 +29,8 @@ class ProcessConnectionThread(private val connection: StreamConnection) : Runnab
                     break
                 }
 
-                val allDatas = data.split("\n")
-
-                for(allData in allDatas) {
-                    processCommand(allData)
-                }
+                println(data)
+                processCommand(data)
             }
         } catch (IOException: IOException) {
             IOException.printStackTrace()
@@ -84,16 +81,22 @@ class ProcessConnectionThread(private val connection: StreamConnection) : Runnab
                         }
 
                         "PIT" -> {
-                            val lancerPit = gson.fromJson(json, LancerPit::class.java)
+                            val allDatas = json.split(" ")
 
-                            if (TeamController.teams.any { it.teamNumber == lancerPit.teamNumber }) {
-                                val team = TeamController.teams.find { it.teamNumber == lancerPit.teamNumber }
-                                team?.pitInfo = lancerPit
-                            } else {
-                                val newTeam = LancerTeam(lancerPit.teamNumber)
-                                newTeam.pitInfo = lancerPit
+                            for (allData in allDatas) {
+                                val lancerPit = gson.fromJson(allData, LancerPit::class.java)
 
-                                TeamController.teams.add(newTeam)
+                                if(lancerPit != null) {
+                                    if (TeamController.teams.any { it.teamNumber == lancerPit.teamNumber }) {
+                                        val team = TeamController.teams.find { it.teamNumber == lancerPit.teamNumber }
+                                        team?.pitInfo = lancerPit
+                                    } else {
+                                        val newTeam = LancerTeam(lancerPit.teamNumber)
+                                        newTeam.pitInfo = lancerPit
+
+                                        TeamController.teams.add(newTeam)
+                                    }
+                                }
                             }
                         }
 

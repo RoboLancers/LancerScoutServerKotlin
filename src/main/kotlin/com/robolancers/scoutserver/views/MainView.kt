@@ -26,7 +26,7 @@ class MainView(tabPane: TabPane): View(){
             style {
                 paddingAll = 20.0
                 spacing = 5.px
-            }
+            } 
 
             hgrow = Priority.ALWAYS
             alignment = Pos.CENTER

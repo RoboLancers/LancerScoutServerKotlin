@@ -25,12 +25,12 @@ class ProcessConnectionThread(private val connection: StreamConnection) : Runnab
                 val data = String(readByteArrayCommand(inputStream))
 
                 if (data == "") {
-                    println("Exit")
+                    //println("Exit")
                     break
+                } else {
+                    println(data)
+                    processCommand(data)
                 }
-
-                println(data)
-                processCommand(data)
             }
         } catch (IOException: IOException) {
             IOException.printStackTrace()
@@ -49,57 +49,6 @@ class ProcessConnectionThread(private val connection: StreamConnection) : Runnab
 
                 try {
                     when (command) {
-                        "MATCH" -> {
-                            val lancerMatch = gson.fromJson(json, LancerMatch::class.java)
-                            val team = TeamController.teams.find { it.teamNumber == lancerMatch.teamNumber }
-
-                            if (team == null) {
-                                val newTeam = LancerTeam(lancerMatch.teamNumber)
-                                newTeam.matches.add(lancerMatch)
-
-                                TeamController.teams.add(newTeam)
-                            } else {
-                                if (team.matches.contains(lancerMatch)) {
-                                    val duplicate = team.matches.find { it == lancerMatch }
-
-                                    if (duplicate != null) {
-                                        val result = AlertHelper.createDuplicateMatchAlert(
-                                            duplicate,
-                                            lancerMatch
-                                        ).showAndWait()
-
-                                        if (result.isPresent && result.get() === ButtonType.OK) {
-                                            val index = team.matches.indexOf(lancerMatch)
-                                            team.matches.remove(lancerMatch)
-                                            team.matches.add(index, lancerMatch)
-                                        }
-                                    }
-                                } else {
-                                    team.matches.add(lancerMatch)
-                                }
-                            }
-                        }
-
-                        "PIT" -> {
-                            val allDatas = json.split(" ")
-
-                            for (allData in allDatas) {
-                                val lancerPit = gson.fromJson(allData, LancerPit::class.java)
-
-                                if(lancerPit != null) {
-                                    if (TeamController.teams.any { it.teamNumber == lancerPit.teamNumber }) {
-                                        val team = TeamController.teams.find { it.teamNumber == lancerPit.teamNumber }
-                                        team?.pitInfo = lancerPit
-                                    } else {
-                                        val newTeam = LancerTeam(lancerPit.teamNumber)
-                                        newTeam.pitInfo = lancerPit
-
-                                        TeamController.teams.add(newTeam)
-                                    }
-                                }
-                            }
-                        }
-
                         else -> Notifications.create().title("Received unknown data").text(json)
                     }
                 } catch (e: JsonSyntaxException) {

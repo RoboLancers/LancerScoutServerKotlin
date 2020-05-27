@@ -5,13 +5,7 @@ import javax.microedition.io.StreamConnection
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 import com.google.gson.JsonSyntaxException
-import com.robolancers.scoutserver.models.match.LancerMatch
-import com.robolancers.scoutserver.controllers.TeamController
-import com.robolancers.scoutserver.models.match.LancerTeam
-import com.robolancers.scoutserver.models.pit.LancerPit
-import com.robolancers.scoutserver.utilities.AlertHelper
 import javafx.application.Platform
-import javafx.scene.control.ButtonType
 import org.controlsfx.control.Notifications
 import com.google.gson.Gson
 
@@ -19,16 +13,15 @@ class ProcessConnectionThread(private val connection: StreamConnection) : Runnab
     override fun run() {
         try {
             val inputStream = connection.openInputStream()
-            //val outputSteam = connection.openOutputStream()
+            val outputSteam = connection.openOutputStream()
 
             while (true) {
                 val data = String(readByteArrayCommand(inputStream))
 
                 if (data == "") {
-                    //println("Exit")
+                    println("Exit")
                     break
                 } else {
-                    println(data)
                     processCommand(data)
                 }
             }
